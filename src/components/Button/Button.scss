@@ -1,0 +1,18 @@
+@import "../../scss/main";
+
+
+button {
+    font-size: 16px;
+    background-color: $colorSuccess;
+    color: #fff;
+    padding: 8px 24px;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    transition: 0.2s ease;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #132633;
+    }
+}
