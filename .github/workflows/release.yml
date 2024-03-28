@@ -1,8 +1,9 @@
 name: "🚀 release"
 
 on:
-    release:
-        types: [published]
+    push:
+        tags:
+            - '*'
 
 jobs:
     release:
@@ -10,14 +11,21 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: 📚 checkout
-              uses: actions/checkout@v2.1.1
+              uses: actions/checkout@v3
+
             - name: 🟢 node
-              uses: actions/setup-node@v1.4.2
+              uses: actions/setup-node@v3
               with:
-                  node-version: 12
-                  registry-url: https://registry.npmjs.org
+                    node-version: 16
+                    registry-url: https://npm.pkg.github.com
+
+            - name: Install dependencies
+              run: npm install
+
+            - name: Build project
+              run: npm run rollup
+
             - name: 🚀 publish
               run: npm publish --access public
-              working-directory: my-package
               env:
-                  NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
+                    NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
